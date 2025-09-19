@@ -1,29 +1,35 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { SafeAreaView, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+  const styles = StyleSheet.create ({
+    titulo: {
+      fontSize: 20,
+      fontWeight: '600',
+      textAlign: 'center',
+      marginTop: 30,
+    },
+    input: {
+      height: 40,
+      borderWidth: 1,
+      padding: 10,
+    }
   });
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <>
+      <SafeAreaView>
+        <Text style={styles.titulo}>Hola mundo</Text>
+        <Text style={styles.titulo}>Titulo del servicio</Text>
+        <TextInput style={styles.input} placeholder='Ingresa tu servicio'/>
+        <Text style={styles.titulo}>Titulo del paciente</Text>
+        <TextInput style={styles.input} placeholder='Ingresa el paciente'/>
+
+        <Pressable onPress={() => console.log('Diste click')}>
+          <Text>Nueva cita</Text>
+        </Pressable>
+      </SafeAreaView>
+    </>
   );
 }
